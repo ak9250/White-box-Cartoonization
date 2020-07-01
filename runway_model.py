@@ -2,26 +2,24 @@ import runway
 import numpy as np
 import tensorflow as tf
 from test_code import network
-import test_code.cartoonize
+import test_code.cartoonize as cart
 from PIL import Image
+from test_code import cartoonize as ct
 
 g = tf.get_default_graph()
 sess = tf.InteractiveSession(graph=g)
 
 @runway.setup(options={'checkpoint': runway.file(is_directory=True)})
 def setup(opts):
-    net = network()
-    return net
+    # net = cart.cartoonize(args.checkpoint)
+    # return net
+    pass
     
 @runway.command('translate', inputs={'image': runway.image}, outputs={'image': runway.image})
 def translate(net, inputs):
-    original_size = inputs['image'].size
-    img = inputs['image'].resize((256, 256))
-    output = net.generate(img)
-    output = np.clip(output, -1, 1)
-    output = ((output + 1.0) * 255 / 2.0)
+    output = ct.cartoonize(inputs['image'], "test_code/saved_models")
     output = output.astype(np.uint8)
-    return Image.fromarray(output).resize(original_size)
+    return Image.fromarray(output)
 
 if __name__ == '__main__':
     runway.run(port=8889)
