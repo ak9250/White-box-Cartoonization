@@ -35,15 +35,20 @@ def cartoonize(input_image, model_path):
     config.gpu_options.allow_growth = True
     sess = tf.Session(config=config)
 
+    print("Loading Model")
     sess.run(tf.global_variables_initializer())
     saver.restore(sess, tf.train.latest_checkpoint(model_path))
-    name_list = os.listdir(load_folder)
     
+    print("Model Loaded")
+
+    print("Processing Input")
     image = input_image
     image = resize_crop(image)
     batch_image = image.astype(np.float32)/127.5 - 1
     batch_image = np.expand_dims(batch_image, axis=0)
+    print("Running Model")
     output = sess.run(final_out, feed_dict={input_photo: batch_image})
+    print("Processing Output")
     output = (np.squeeze(output)+1)*127.5
     output = np.clip(output, 0, 255).astype(np.uint8)
     return output

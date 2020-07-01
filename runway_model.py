@@ -17,7 +17,9 @@ def setup(opts):
     
 @runway.command('translate', inputs={'image': runway.image}, outputs={'image': runway.image})
 def translate(net, inputs):
+    print("Starting")
     output = ct.cartoonize(inputs['image'], "test_code/saved_models")
+    print("Done")
     output = output.astype(np.uint8)
     return Image.fromarray(output)
 
