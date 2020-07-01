@@ -15,10 +15,9 @@ def resize_crop(image):
             h, w = int(720*h/w), 720
         else:
             h, w = 720, int(720*w/h)
-    image = cv2.resize(image, (w, h),
-                       interpolation=cv2.INTER_AREA)
+    
     h, w = (h//8)*8, (w//8)*8
-    image = image[:h, :w, :]
+    image = image.resize((w, h))
     return image
     
 
