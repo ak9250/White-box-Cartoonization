@@ -2,8 +2,8 @@ import os
 import cv2
 import numpy as np
 import tensorflow as tf 
-import network
-import guided_filter
+from test_code import network
+from test_code import guided_filter
 from tqdm import tqdm
 
 
