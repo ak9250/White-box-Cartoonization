@@ -1,0 +1,9 @@
+version: 0.1
+python: 3.6
+entrypoint: python runway_model.py
+cuda: 9.2
+spec:
+    cpu: False
+    gpu: True    
+build_steps:
+    - pip install runway-python tensorflow-gpu==1.15 scikit-image==0.14.5
