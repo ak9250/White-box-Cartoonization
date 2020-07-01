@@ -6,4 +6,4 @@ spec:
     cpu: False
     gpu: True    
 build_steps:
-    - pip install runway-python tensorflow-gpu==1.15 scikit-image==0.14.5
+    - pip install runway-python tensorflow-gpu==1.15 scikit-image==0.14.5 opencv-python
