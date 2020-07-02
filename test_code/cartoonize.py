@@ -24,7 +24,7 @@ def resize_crop(image):
 
 def cartoonize(input_image, model_path):
     input_photo = tf.placeholder(tf.float32, [1, None, None, 3])
-    network_out = network.unet_generator(input_photo)
+    network_out = network.unet_generator(input_photo, reuse=tf.AUTO_REUSE)
     final_out = guided_filter.guided_filter(input_photo, network_out, r=1, eps=5e-3)
 
     all_vars = tf.trainable_variables()
