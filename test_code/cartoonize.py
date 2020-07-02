@@ -36,30 +36,30 @@ def cartoonize(input_image, model_path):
     
     # g = tf.get_default_graph()
     # sess = tf.InteractiveSession(graph=g)
-    sess = tf.Session(config=config)
-    # with tf.Session(config=config) as sess:
+    #sess = tf.Session(config=config)
+    with tf.Session(config=config) as sess:
     #    
-    tf.reset_default_graph()
+    #tf.reset_default_graph()
 
-    print("Loading Model")
-    sess.run(tf.global_variables_initializer())
-    saver.restore(sess, tf.train.latest_checkpoint(model_path))
-    
-    print("Model Loaded")
+        print("Loading Model")
+        sess.run(tf.global_variables_initializer())
+        saver.restore(sess, tf.train.latest_checkpoint(model_path))
 
-    print("Processing Input")
-    image = input_image
-    image = np.array(image)
-    image = resize_crop(image)
-    batch_image = image.astype(np.float32)/127.5 - 1
-    #batch_image = np.array(image)
-    batch_image = np.expand_dims(batch_image, axis=0)
-    print("Running Model")
-    output = sess.run(final_out, feed_dict={input_photo: batch_image})
-    print("Processing Output")
-    output = (np.squeeze(output)+1)*127.5
-    output = np.clip(output, 0, 255).astype(np.uint8)
-    return output
+        print("Model Loaded")
+
+        print("Processing Input")
+        image = input_image
+        image = np.array(image)
+        image = resize_crop(image)
+        batch_image = image.astype(np.float32)/127.5 - 1
+        #batch_image = np.array(image)
+        batch_image = np.expand_dims(batch_image, axis=0)
+        print("Running Model")
+        output = sess.run(final_out, feed_dict={input_photo: batch_image})
+        print("Processing Output")
+        output = (np.squeeze(output)+1)*127.5
+        output = np.clip(output, 0, 255).astype(np.uint8)
+        return output
 
 
     
