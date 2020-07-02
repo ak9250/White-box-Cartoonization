@@ -34,11 +34,12 @@ def cartoonize(input_image, model_path):
     config = tf.ConfigProto()
     config.gpu_options.allow_growth = True
     
-    g = tf.get_default_graph()
-    sess = tf.InteractiveSession(graph=g)
+    # g = tf.get_default_graph()
+    # sess = tf.InteractiveSession(graph=g)
     sess = tf.Session(config=config)
     # with tf.Session(config=config) as sess:
-    #     tf.reset_default_graph()
+    #    
+    tf.reset_default_graph()
 
     print("Loading Model")
     sess.run(tf.global_variables_initializer())
