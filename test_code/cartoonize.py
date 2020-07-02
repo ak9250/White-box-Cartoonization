@@ -20,12 +20,16 @@ def resize_crop(image):
     h, w = (h//8)*8, (w//8)*8
     image = image[:h, :w, :]
     return image
-    
 
-def cartoonize(input_image, model_path):
+def setup_cartoonize():
     input_photo = tf.placeholder(tf.float32, [1, None, None, 3])
-    network_out = network.unet_generator(input_photo, reuse=tf.AUTO_REUSE)
+    network_out = network.unet_generator(input_photo)
     final_out = guided_filter.guided_filter(input_photo, network_out, r=1, eps=5e-3)
+
+    return final_out
+
+def cartoonize(input_image, model_path, final_out):
+    
 
     all_vars = tf.trainable_variables()
     gene_vars = [var for var in all_vars if 'generator' in var.name]

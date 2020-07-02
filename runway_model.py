@@ -9,12 +9,12 @@ from test_code import cartoonize as ct
 
 @runway.setup(options={'checkpoint': runway.file(is_directory=True)})
 def setup(opts):
-    pass
+    return ct.setup_cartoonize()
     
 @runway.command('translate', inputs={'image': runway.image}, outputs={'image': runway.image})
 def translate(net, inputs):
     print("Starting")
-    output = ct.cartoonize(inputs['image'], "test_code/saved_models")
+    output = ct.cartoonize(inputs['image'], "test_code/saved_models", net)
     print("Done")
     return Image.fromarray(output)
 
