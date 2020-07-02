@@ -41,10 +41,11 @@ def cartoonize(input_image, model_path):
     print("Model Loaded")
 
     print("Processing Input")
-    image = cv2.imread(input_image)
+    image = input_image
+    image = np.array(image)
     image = resize_crop(image)
-    # batch_image = image.astype(np.float32)/127.5 - 1
-    batch_image = np.array(image)
+    batch_image = image.astype(np.float32)/127.5 - 1
+    #batch_image = np.array(image)
     batch_image = np.expand_dims(batch_image, axis=0)
     print("Running Model")
     output = sess.run(final_out, feed_dict={input_photo: batch_image})
