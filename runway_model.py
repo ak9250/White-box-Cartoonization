@@ -6,13 +6,9 @@ import test_code.cartoonize as cart
 from PIL import Image
 from test_code import cartoonize as ct
 
-g = tf.get_default_graph()
-sess = tf.InteractiveSession(graph=g)
 
 @runway.setup(options={'checkpoint': runway.file(is_directory=True)})
 def setup(opts):
-    # net = cart.cartoonize(args.checkpoint)
-    # return net
     pass
     
 @runway.command('translate', inputs={'image': runway.image}, outputs={'image': runway.image})
